@@ -26,7 +26,7 @@ function App() {
 					throw new Error("authentication failed");
 				})
 				.then((res) => {
-					setUser(res.user);
+					setUser(res.user?.data);
 				})
 				.catch((err) => console.error(err));
 		};
@@ -35,7 +35,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<Header name={user?.displayName} />
+			<Header name={user?.name} email={user?.email} balance={user?.balance} />
 			<Routes>
 				<Route
 					path="/"
