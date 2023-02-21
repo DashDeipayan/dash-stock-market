@@ -12,18 +12,21 @@ const LandingPage = () => {
 	return (
 		<div className="login-image">
 			<div className="rds-image"></div>
-			<div class="flex gap-5 flex-col items-center justify-self-stretch">
-				<div class="w-80 h-20 bg-black  rounded-sm flex items-center justify-center ">
-					<button class="p-0 text-2xl text-center text-white" onClick={github}>
+			<div className="flex gap-5 flex-col items-center justify-self-stretch">
+				<div className="w-80 h-20 bg-black  rounded-sm flex items-center justify-center ">
+					<button
+						className="p-0 text-2xl text-center text-white"
+						onClick={github}
+					>
 						<img
 							alt="github logo"
-							class="inline w-1/6 mr-4 ml-0"
+							className="inline w-1/6 mr-4 ml-0"
 							src="assets/images/github-mark-white.png"
 						></img>
 						Sign in with GitHub
 					</button>
 				</div>
-				<div class="h-20 w-80 flex-1 flex-grow fill-current">
+				<div className="h-20 w-80 flex-1 flex-grow fill-current">
 					<img
 						onClick={google}
 						alt="google logo"

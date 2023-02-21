@@ -33,10 +33,9 @@ function App() {
 		getUser();
 	}, []);
 
-	console.log(user);
 	return (
 		<div className="App">
-			<Header name={user?.displayName} imagesrc={user?.photos[0]?.value} />
+			<Header name={user?.displayName} />
 			<Routes>
 				<Route
 					path="/"
