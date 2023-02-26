@@ -5,10 +5,14 @@ import Header from "./components/header/header";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import SellStocks from "./screens/SellStocks";
 import BuyStocks from "./screens/BuyStocks";
+import { addStocks } from "./redux/actions";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 function App() {
 	const [user, setUser] = useState(null);
+	const [sse, setSse] = useState(null);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -28,10 +32,28 @@ function App() {
 				.then((res) => {
 					setUser(res.user?.data);
 				})
+				.then(() => {
+					setSse(new EventSource("http://localhost:8090/api/stocks"));
+				})
 				.catch((err) => console.error(err));
 		};
 		getUser();
 	}, []);
+	useEffect(() => {
+		const updateStockPrices = (data) => {
+			const actionPayload = addStocks(data);
+			dispatch(actionPayload);
+		};
+
+		if (sse) {
+			sse.onmessage = (e) => {
+				updateStockPrices(JSON.parse(e.data));
+			};
+		}
+		return () => {
+			sse && sse.close();
+		};
+	}, [sse, user, dispatch]);
 
 	return (
 		<div className="App">
