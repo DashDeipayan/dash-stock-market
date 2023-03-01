@@ -12,11 +12,16 @@ const SellStocks = () => {
 	});
 
 	return (
-		<div className="m-32 grid lg:grid-cols-3 gap-32">
-			{userStocksData.map((data) => (
-				<Cards key={data.stockId} data={data} />
-			))}
-		</div>
+		<>
+			<div className="header-name ml-14 mt-28 flex items-center justify-center">
+				Your Stocks{" "}
+			</div>
+			<div className="mr-32 ml-32 mb-32 mt-10 grid lg:grid-cols-3 gap-32">
+				{userStocksData.map((data) => (
+					<Cards key={data.stockId} data={data} />
+				))}
+			</div>
+		</>
 	);
 };
 

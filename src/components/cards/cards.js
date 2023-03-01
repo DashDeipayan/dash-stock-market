@@ -6,7 +6,7 @@ const Cards = ({ data }) => {
 		<div className="card hover:shadow-lg">
 			<img
 				src={data.image}
-				alt="stew"
+				alt={data.name}
 				className="w-1/4 h-1/4 mb-0 mx-auto sm:h-48 object-contain"
 			/>
 			<div className="px-4 pb-6 w-full">
