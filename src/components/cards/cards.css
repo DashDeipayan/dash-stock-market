@@ -1,0 +1,16 @@
+.my-class {
+	-webkit-animation: name 10s ease infinite;
+	animation: name 10s ease infinite;
+}
+
+@keyframes name {
+	0% {
+		color: rgb(194, 213, 16);
+	}
+	25% {
+		color: grey;
+	}
+	100% {
+		color: grey;
+	}
+}

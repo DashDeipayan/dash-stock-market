@@ -5,7 +5,7 @@ import Header from "./components/header/header";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import SellStocks from "./screens/SellStocks";
 import BuyStocks from "./screens/BuyStocks";
-import { addStocks } from "./redux/actions";
+import { addStocks, addUserStocks } from "./redux/actions";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -53,24 +53,38 @@ function App() {
 		return () => {
 			sse && sse.close();
 		};
-	}, [sse, user, dispatch]);
+	}, [sse, dispatch]);
+	useEffect(() => {
+		const getUserStocksData = async () => {
+			fetch(`http://localhost:8090/api/investments/${user?.investorId}`)
+				.then((res) => {
+					if (res.status === 200) return res.json();
+					throw new Error("Error in fetching data");
+				})
+				.then((res) => {
+					const actionPayload = addUserStocks(res.stocks);
+					dispatch(actionPayload);
+				})
+				.catch((err) => console.error(err));
+		};
+		user?.investorId && getUserStocksData();
+	}, [user?.investorId, dispatch]);
 
 	return (
 		<div className="App">
 			<Header name={user?.name} email={user?.email} balance={user?.balance} />
 			<Routes>
-				<Route
-					path="/"
-					element={!user ? <LandingPage /> : <Navigate to="/buystocks" />}
-				/>
-				<Route
-					path="/sellstocks"
-					element={user ? <SellStocks /> : <Navigate to="/" />}
-				/>
-				<Route
-					path="/buystocks"
-					element={user ? <BuyStocks /> : <Navigate to="/" />}
-				/>
+				{!user ? (
+					<>
+						<Route path="/*" element={<LandingPage />} />
+					</>
+				) : (
+					<>
+						<Route path="/sellstocks" element={<SellStocks />} />
+						<Route path="/buystocks" element={<BuyStocks />} />
+						<Route path="/*" element={<Navigate to="/buystocks" />} />
+					</>
+				)}
 			</Routes>
 			<Footer />
 		</div>

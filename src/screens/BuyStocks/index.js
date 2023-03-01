@@ -3,11 +3,10 @@ import Cards from "../../components/cards/cards";
 import { useSelector } from "react-redux";
 
 const BuyStocks = () => {
-	const stocksData = useSelector((state) => state).stocks;
-	console.log(stocksData);
+	const { stocks } = useSelector((state) => state);
 	return (
 		<div className="m-32 grid lg:grid-cols-3 gap-32">
-			{stocksData.map((data) => (
+			{stocks.map((data) => (
 				<Cards key={data.stockId} data={data} />
 			))}
 		</div>

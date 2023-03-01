@@ -1,26 +1,26 @@
 const initialState = {
 	stocks: [],
-	userStocksData: { stocks: [] },
+	userStocks: [],
 };
 
 const stocksDetails = (state = initialState, action) => {
 	switch (action.type) {
-		case "GET_STOCKS": {
+		case "ADD_USER_STOCKS": {
 			return {
 				...state,
-				stocks: action.payload.stocksData,
-			};
-		}
-		case "GET_USER_STOCKS": {
-			return {
-				...state,
-				userStocksData: action.payload.userStocksData,
+				userStocks: action.payload.userStocks,
 			};
 		}
 		case "ADD_STOCKS": {
 			return {
 				...state,
 				stocks: action.payload.stocks,
+			};
+		}
+		case "ADD_USER": {
+			return {
+				...state,
+				user: action.payload.user,
 			};
 		}
 		default: {
