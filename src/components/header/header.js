@@ -17,7 +17,7 @@ const Header = ({ name, email, balance }) => {
 			{name && (
 				<div className="m-5 flex gap-10">
 					<div className="items-center flex mr-10 text-2xl font-extrabold font-serif text-yellow-500">
-						Balance: ₹{balance}
+						Balance: ₹{parseFloat(balance).toFixed(3)}
 					</div>
 					<div className="flex flex-col">
 						<div className="flex items-center ml-5 text-xl font-bold text-blue-900">

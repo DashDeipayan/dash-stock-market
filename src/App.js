@@ -5,14 +5,16 @@ import Header from "./components/header/header";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import SellStocks from "./screens/SellStocks";
 import BuyStocks from "./screens/BuyStocks";
-import { addStocks, addUserStocks } from "./redux/actions";
+import { addStocks, addUser, addUserStocks } from "./redux/actions";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
 	const [user, setUser] = useState(null);
 	const [sse, setSse] = useState(null);
 	const dispatch = useDispatch();
+	const userData = useSelector((state) => state.user);
+	console.log(userData);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -31,6 +33,8 @@ function App() {
 				})
 				.then((res) => {
 					setUser(res.user?.data);
+					const actionPayload = addUser(res.user?.data);
+					dispatch(actionPayload);
 				})
 				.then(() => {
 					setSse(new EventSource("http://localhost:8090/api/stocks"));
@@ -38,7 +42,7 @@ function App() {
 				.catch((err) => console.error(err));
 		};
 		getUser();
-	}, []);
+	}, [dispatch]);
 	useEffect(() => {
 		const updateStockPrices = (data) => {
 			const actionPayload = addStocks(data);
@@ -69,10 +73,15 @@ function App() {
 		};
 		user?.investorId && getUserStocksData();
 	}, [user?.investorId, dispatch]);
-
+	console.log(user);
+	console.log(userData);
 	return (
 		<div className="App">
-			<Header name={user?.name} email={user?.email} balance={user?.balance} />
+			<Header
+				name={user?.name || ""}
+				email={user?.email || ""}
+				balance={user?.balance || ""}
+			/>
 			<Routes>
 				{!user ? (
 					<>
@@ -80,8 +89,14 @@ function App() {
 					</>
 				) : (
 					<>
-						<Route path="/sellstocks" element={<SellStocks />} />
-						<Route path="/buystocks" element={<BuyStocks />} />
+						<Route
+							path="/sellstocks"
+							element={<SellStocks setUser={setUser} />}
+						/>
+						<Route
+							path="/buystocks"
+							element={<BuyStocks setUser={setUser} />}
+						/>
 						<Route path="/*" element={<Navigate to="/buystocks" />} />
 					</>
 				)}

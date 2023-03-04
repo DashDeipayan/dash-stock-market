@@ -1,6 +1,7 @@
 const initialState = {
 	stocks: [],
 	userStocks: [],
+	user: null,
 };
 
 const stocksDetails = (state = initialState, action) => {
