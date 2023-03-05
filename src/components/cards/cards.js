@@ -43,7 +43,7 @@ const Cards = ({ data, type }) => {
 						/>
 					</svg>
 					{
-						<span className="text-blue-400">
+						<span className="text-blue-700">
 							Quantity: {data.stockQuantity || data.quantity}
 						</span>
 					}

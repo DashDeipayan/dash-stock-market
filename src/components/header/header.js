@@ -27,7 +27,7 @@ const Header = ({ name, email, balance }) => {
 							Balance: ₹{parseFloat(balance).toFixed(3)}
 						</div>
 						<div className="flex flex-col cursor-pointer" onClick={showOptions}>
-							<div className="flex items-center ml-5 text-xl font-bold text-blue-900">
+							<div className="flex items-center ml-5 text-xl font-bold text-blue-900 hover:text-indigo-300">
 								{name}
 							</div>
 							<div className="text-white">{email}</div>
