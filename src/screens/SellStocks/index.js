@@ -29,7 +29,7 @@ const SellStocks = ({ setUser }) => {
 
 	return (
 		<>
-			<div className="header-name ml-14 mt-28 flex items-center justify-center">
+			<div className="header-name ml-14 flex items-center justify-center">
 				Your Stocks{" "}
 			</div>
 			<Dialog />

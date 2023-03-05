@@ -25,7 +25,7 @@ const BuyStocks = ({ setUser }) => {
 	}, [dispatch, setUser, user?.investorId]);
 
 	return (
-		<div className="m-32 grid lg:grid-cols-3 gap-32">
+		<div className="mr-32 ml-32 mb-32 mt-16  grid lg:grid-cols-3 gap-32">
 			{stocks.map((data) => (
 				<Cards key={data.stockId} data={data} type={"BUY"} />
 			))}
