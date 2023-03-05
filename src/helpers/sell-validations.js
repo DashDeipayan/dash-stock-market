@@ -1,5 +1,5 @@
 export const sellValidations = (userData, purchaseData) => {
-	if (purchaseData.quantity === 0)
+	if (parseFloat(purchaseData.quantity) === 0)
 		return {
 			error: (
 				<p className="block text-sm text-red-600">
