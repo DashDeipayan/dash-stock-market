@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const Dialog = (props) => {
 	const [price, setPrice] = useState(0);
 	const [quantity, setQuantity] = useState(0);
-	const [errorCode, setErrorCode] = useState(0);
+	const [errorCode, setErrorCode] = useState({ code: 0, error: null });
 
 	const { user } = useSelector((state) => state);
 
@@ -20,14 +20,14 @@ const Dialog = (props) => {
 		e.preventDefault();
 		setQuantity(e.target.value);
 		setPrice((e.target.value * data.value).toFixed(4));
-		setErrorCode(0);
+		setErrorCode({ code: 0, error: null });
 	};
 
 	const changePrice = (e) => {
 		e.preventDefault();
 		setPrice(e.target.value);
 		setQuantity((e.target.value / data.value).toFixed(4));
-		setErrorCode(0);
+		setErrorCode({});
 	};
 
 	const onblurPrice = (e) => {
@@ -47,26 +47,29 @@ const Dialog = (props) => {
 			stockId: data.stockId,
 			investorId: data.investorId,
 		};
+		console.log(payload);
 		const isErrorBuy = buyValidations(user, payload);
 		const isErrorSell = sellValidations(data, payload);
 		type === "BUY" ? setErrorCode(isErrorBuy) : setErrorCode(isErrorSell);
-		if (isErrorBuy !== 0 || isErrorSell !== 0) return;
-		fetch(`http://localhost:8090/api/purchase/${type.toLowerCase()}/`, {
-			method: "POST",
-			headers: {
-				"content-type": "application/json",
-			},
-			body: JSON.stringify(payload),
-		})
-			.then((res) => {
-				if (res.status === 200) return res.json();
-				throw new Error("Transaction failed");
-			})
-			.then((data) => {
-				alert(`Transaction successful \n TransactionID:${data.transactionId}`);
-				window.location.reload();
-			})
-			.catch((err) => console.error(err));
+		console.log(isErrorBuy);
+		if (isErrorBuy.code !== 0 || isErrorSell?.code !== 0) return;
+		// fetch(`http://localhost:8090/api/purchase/${type.toLowerCase()}/`, {
+		// 	method: "POST",
+		// 	headers: {
+		// 		"content-type": "application/json",
+		// 	},
+		// 	body: JSON.stringify(payload),
+		// })
+		// 	.then((res) => {
+		// 		if (res.status === 200) return res.json();
+		// 		throw new Error("Transaction failed");
+		// 	})
+		// 	.then((data) => {
+		// 		alert(`Transaction successful \n TransactionID:${data.transactionId}`);
+		// 		window.location.reload();
+		// 	})
+		// 	.catch((err) => console.error(err));
+		console.log("trans success");
 	};
 
 	return showDialog ? (
@@ -92,12 +95,10 @@ const Dialog = (props) => {
 				</div>
 				<div>
 					<label className="pb-1">Quantity</label>
-					{type === "SELL" && errorCode === 1 && (
-						<p className="block text-sm text-red-600">{`Not a valid quantity, must be less than ${data?.stockQuantity}`}</p>
-					)}
+					{type === "SELL" && errorCode.code !== 0 && errorCode.error}
 					<input
 						className={`w-full mb-4 p-3 ${
-							errorCode === 1 ? "text-red-600" : ""
+							errorCode.code !== 0 ? "text-red-600" : ""
 						}`}
 						type="number"
 						value={quantity}
@@ -107,12 +108,10 @@ const Dialog = (props) => {
 				</div>
 				<div>
 					<label className="pb-1">Price</label>
-					{type === "BUY" && errorCode === 1 && (
-						<p className="block text-sm text-red-600">Not enough balance</p>
-					)}
+					{type === "BUY" && errorCode.code !== 0 && errorCode.error}
 					<input
 						className={`w-full mb-4 p-3 ${
-							errorCode === 1 ? "text-red-600" : ""
+							errorCode.code !== 0 ? "text-red-600" : ""
 						}`}
 						type="number"
 						value={price}
