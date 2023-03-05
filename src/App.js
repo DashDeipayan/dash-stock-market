@@ -7,14 +7,12 @@ import SellStocks from "./screens/SellStocks";
 import BuyStocks from "./screens/BuyStocks";
 import { addStocks, addUser, addUserStocks } from "./redux/actions";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function App() {
 	const [user, setUser] = useState(null);
 	const [sse, setSse] = useState(null);
 	const dispatch = useDispatch();
-	const userData = useSelector((state) => state.user);
-	console.log(userData);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -73,8 +71,6 @@ function App() {
 		};
 		user?.investorId && getUserStocksData();
 	}, [user?.investorId, dispatch]);
-	console.log(user);
-	console.log(userData);
 	return (
 		<div className="App">
 			<Header

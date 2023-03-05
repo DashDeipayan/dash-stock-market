@@ -4,11 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../../redux/actions";
 
 const BuyStocks = ({ setUser }) => {
-	const { stocks } = useSelector((state) => state);
-	const { user } = useSelector((state) => state);
-	const state = useSelector((state) => state);
+	const { stocks, user } = useSelector((state) => state);
 	const dispatch = useDispatch();
-	console.log(state);
 
 	stocks.forEach((stock) => {
 		stock.investorId = user?.investorId;
@@ -18,8 +15,6 @@ const BuyStocks = ({ setUser }) => {
 			fetch(`http://localhost:8090/api/investors/${user?.investorId}`)
 				.then((res) => res.json())
 				.then((data) => {
-					console.log("daksjdalskdj");
-					console.log(data[0]);
 					const actionPayload = addUser({ ...data[0] });
 					dispatch(actionPayload);
 					return data;
