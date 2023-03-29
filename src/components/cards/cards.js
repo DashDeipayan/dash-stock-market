@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, Suspense } from "react";
 import "./cards.css";
-import Dialog from "../dialog/dialog";
+import LoadingSpinner from "../loader/loader";
+const Dialog = React.lazy(() => import("../dialog/dialog"));
 
 const Cards = ({ data, type }) => {
 	const [showDialog, setShowDialog] = useState(false);
-	const openModal = () => {
+	const openModal = useCallback(() => {
 		setShowDialog(true);
-	};
+	}, []);
 	return (
 		<>
 			<div className="card hover:shadow-lg" onClick={openModal}>
@@ -49,13 +50,20 @@ const Cards = ({ data, type }) => {
 					}
 				</div>
 			</div>
-
-			<Dialog
-				data={data}
-				showDialog={showDialog}
-				setShowDialog={setShowDialog}
-				type={type}
-			/>
+			<Suspense
+				fallback={
+					<div>
+						<LoadingSpinner />
+					</div>
+				}
+			>
+				<Dialog
+					data={data}
+					showDialog={showDialog}
+					setShowDialog={setShowDialog}
+					type={type}
+				/>
+			</Suspense>
 		</>
 	);
 };

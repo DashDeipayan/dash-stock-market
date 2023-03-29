@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 function App() {
 	const [user, setUser] = useState(null);
 	const [sse, setSse] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -58,16 +59,21 @@ function App() {
 	}, [sse, dispatch]);
 	useEffect(() => {
 		const getUserStocksData = async () => {
+			setIsLoading(true);
 			fetch(`http://localhost:8090/api/investments/${user?.investorId}`)
 				.then((res) => {
 					if (res.status === 200) return res.json();
 					throw new Error("Error in fetching data");
 				})
 				.then((res) => {
+					setIsLoading(false);
 					const actionPayload = addUserStocks(res.stocks);
 					dispatch(actionPayload);
 				})
-				.catch((err) => console.error(err));
+				.catch((err) => {
+					setIsLoading(false);
+					console.error(err);
+				});
 		};
 		user?.investorId && getUserStocksData();
 	}, [user?.investorId, dispatch]);
@@ -87,11 +93,11 @@ function App() {
 					<>
 						<Route
 							path="/sellstocks"
-							element={<SellStocks setUser={setUser} />}
+							element={<SellStocks setUser={setUser} isLoading={isLoading} />}
 						/>
 						<Route
 							path="/buystocks"
-							element={<BuyStocks setUser={setUser} />}
+							element={<BuyStocks setUser={setUser} isLoading={isLoading} />}
 						/>
 						<Route path="/*" element={<Navigate to="/buystocks" />} />
 					</>
