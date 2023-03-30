@@ -78,7 +78,7 @@ const Dialog = (props) => {
 				setIsLoading(false);
 				console.error(err);
 			});
-	}, [data, price, quantity, setShowDialog, type, user]);
+	}, [closeDialog, data, price, quantity, type, user]);
 
 	return showDialog ? (
 		<div className="bg-slate-800 left-0 right-0 top-0 bottom-0 bg-opacity-40 grid place-items-center fixed z-50">

@@ -16,14 +16,14 @@ const SellStocks = ({ setUser }) => {
 		});
 	}, [stocks, userStocks]);
 
-	const setUserData = async () => {
-		const res = await fetch(`${BASE_URL}/api/investors/${user?.investorId}`);
-		const data = await res.json();
-		const actionPayload = addUser(data);
-		dispatch(actionPayload);
-		setUser({ ...data[0] });
-	};
 	useEffect(() => {
+		const setUserData = async () => {
+			const res = await fetch(`${BASE_URL}/api/investors/${user?.investorId}`);
+			const data = await res.json();
+			const actionPayload = addUser(data);
+			dispatch(actionPayload);
+			setUser({ ...data[0] });
+		};
 		user?.investorId && setUserData();
 	}, [dispatch, user?.investorId, setUser]);
 
