@@ -4,6 +4,8 @@ import { sellValidations } from "../../helpers/sell-validations";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../loader/loader";
 
+const BASE_URL = process.env.BASE_URL;
+
 const Dialog = (props) => {
 	const [price, setPrice] = useState(0);
 	const [quantity, setQuantity] = useState(0);
@@ -54,7 +56,7 @@ const Dialog = (props) => {
 		type === "BUY" ? setErrorCode(isErrorBuy) : setErrorCode(isErrorSell);
 		if (isErrorBuy.code !== 0 || isErrorSell?.code !== 0) return;
 		setIsLoading(true);
-		fetch(`http://localhost:8090/api/purchase/${type.toLowerCase()}/`, {
+		fetch(`${BASE_URL}/api/purchase/${type.toLowerCase()}/`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",

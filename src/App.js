@@ -9,6 +9,8 @@ import { addStocks, addUser, addUserStocks } from "./redux/actions";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
+const BASE_URL = process.env.BASE_URL;
+
 function App() {
 	const [user, setUser] = useState(null);
 	const [sse, setSse] = useState(null);
@@ -17,7 +19,7 @@ function App() {
 
 	useEffect(() => {
 		const getUser = async () => {
-			fetch("http://localhost:8090/auth/login/success", {
+			fetch(`${BASE_URL}/auth/login/success`, {
 				method: "GET",
 				credentials: "include",
 				headers: {
@@ -36,7 +38,7 @@ function App() {
 					dispatch(actionPayload);
 				})
 				.then(() => {
-					setSse(new EventSource("http://localhost:8090/api/stocks"));
+					setSse(new EventSource(`${BASE_URL}/api/stocks`));
 				})
 				.catch((err) => console.error(err));
 		};
@@ -60,7 +62,7 @@ function App() {
 	useEffect(() => {
 		const getUserStocksData = async () => {
 			setIsLoading(true);
-			fetch(`http://localhost:8090/api/investments/${user?.investorId}`)
+			fetch(`${BASE_URL}/api/investments/${user?.investorId}`)
 				.then((res) => {
 					if (res.status === 200) return res.json();
 					throw new Error("Error in fetching data");

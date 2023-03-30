@@ -3,13 +3,15 @@ import "./header.css";
 import Profile from "../profile-options/profile";
 import { Link } from "react-router-dom";
 
+const BASE_URL = process.env.BASE_URL;
+
 const Header = ({ name, email, balance }) => {
 	const [showProfileOptions, setShowProfileOptions] = useState(false);
 	const showOptions = () => {
 		setShowProfileOptions((prev) => !prev);
 	};
 	const logout = () => {
-		window.open("http://localhost:8090/auth/logout", "_self");
+		window.open(`${BASE_URL}/auth/logout`, "_self");
 	};
 	return (
 		<div div className="relative mb-0">

@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../../redux/actions";
 import LoadingSpinner from "../../components/loader/loader";
 
+const BASE_URL = process.env.BASE_URL;
+
 const BuyStocks = ({ setUser, isLoading }) => {
 	const { stocks, user } = useSelector((state) => state);
 	const dispatch = useDispatch();
@@ -16,9 +18,7 @@ const BuyStocks = ({ setUser, isLoading }) => {
 	}, [stocks, user?.investorId]);
 
 	const setUserData = async () => {
-		const res = await fetch(
-			`http://localhost:8090/api/investors/${user?.investorId}`
-		);
+		const res = await fetch(`${BASE_URL}/api/investors/${user?.investorId}`);
 		const data = await res.json();
 		const actionPayload = addUser({ ...data[0] });
 		dispatch(actionPayload);

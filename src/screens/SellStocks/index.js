@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Cards from "../../components/cards/cards";
 import { addUser } from "../../redux/actions";
 
+const BASE_URL = process.env.BASE_URL;
+
 const SellStocks = ({ setUser }) => {
 	const { stocks, userStocks, user } = useSelector((state) => state);
 	const dispatch = useDispatch();
@@ -15,9 +17,7 @@ const SellStocks = ({ setUser }) => {
 	}, [stocks, userStocks]);
 
 	const setUserData = async () => {
-		const res = await fetch(
-			`http://localhost:8090/api/investors/${user?.investorId}`
-		);
+		const res = await fetch(`${BASE_URL}/api/investors/${user?.investorId}`);
 		const data = await res.json();
 		const actionPayload = addUser(data);
 		dispatch(actionPayload);

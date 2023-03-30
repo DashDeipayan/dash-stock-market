@@ -1,12 +1,14 @@
 import React from "react";
 import "./LandingPage.css";
 
+const BASE_URL = process.env.BASE_URL;
+
 const LandingPage = () => {
 	const google = () => {
-		window.open("http://localhost:8090/auth/google", "_self");
+		window.open(`${BASE_URL}/auth/google`, "_self");
 	};
 	const github = () => {
-		window.open("http://localhost:8090/auth/github", "_self");
+		window.open(`${BASE_URL}/auth/github`, "_self");
 	};
 
 	return (
