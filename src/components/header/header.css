@@ -6,10 +6,10 @@
 		hsl(335, 100%, 45%) 90%,
 		hsl(240, 100%, 20%)
 	);
+
 	margin-bottom: 0;
 	padding: 0;
 	text-align: center;
-	position: fixed;
 	top: 0;
 	width: 100%;
 }
