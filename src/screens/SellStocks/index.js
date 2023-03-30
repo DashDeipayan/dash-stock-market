@@ -2,8 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Cards from "../../components/cards/cards";
 import { addUser } from "../../redux/actions";
-
-const BASE_URL = process.env.BASE_URL;
+import BASE_URL from "../../Constants";
 
 const SellStocks = ({ setUser }) => {
 	const { stocks, userStocks, user } = useSelector((state) => state);

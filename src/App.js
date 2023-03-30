@@ -1,4 +1,5 @@
 import "./App.css";
+import BASE_URL from "./Constants";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/footer/footer";
 import Header from "./components/header/header";
@@ -8,8 +9,6 @@ import BuyStocks from "./screens/BuyStocks";
 import { addStocks, addUser, addUserStocks } from "./redux/actions";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
-const BASE_URL = process.env.BASE_URL;
 
 function App() {
 	const [user, setUser] = useState(null);

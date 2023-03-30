@@ -3,8 +3,7 @@ import Cards from "../../components/cards/cards";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../../redux/actions";
 import LoadingSpinner from "../../components/loader/loader";
-
-const BASE_URL = process.env.BASE_URL;
+import BASE_URL from "../../Constants";
 
 const BuyStocks = ({ setUser, isLoading }) => {
 	const { stocks, user } = useSelector((state) => state);

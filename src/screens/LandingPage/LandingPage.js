@@ -1,7 +1,6 @@
 import React from "react";
 import "./LandingPage.css";
-
-const BASE_URL = process.env.BASE_URL;
+import BASE_URL from "../../Constants";
 
 const LandingPage = () => {
 	const google = () => {

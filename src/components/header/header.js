@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./header.css";
 import Profile from "../profile-options/profile";
 import { Link } from "react-router-dom";
-
-const BASE_URL = process.env.BASE_URL;
+import BASE_URL from "../../Constants";
 
 const Header = ({ name, email, balance }) => {
 	const [showProfileOptions, setShowProfileOptions] = useState(false);

@@ -3,8 +3,7 @@ import { buyValidations } from "../../helpers/buy-validations";
 import { sellValidations } from "../../helpers/sell-validations";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../loader/loader";
-
-const BASE_URL = process.env.BASE_URL;
+import BASE_URL from "../../Constants";
 
 const Dialog = (props) => {
 	const [price, setPrice] = useState(0);
@@ -17,9 +16,9 @@ const Dialog = (props) => {
 
 	const { data, setShowDialog, showDialog, type } = props;
 
-	const closeDialog = () => {
+	const closeDialog = useCallback(() => {
 		setShowDialog(() => false);
-	};
+	}, [setShowDialog]);
 
 	const changeQuantity = (e) => {
 		e.preventDefault();
