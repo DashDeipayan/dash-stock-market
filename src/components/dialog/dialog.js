@@ -72,6 +72,7 @@ const Dialog = (props) => {
 			.then((data) => {
 				alert(`Transaction successful \n TransactionID:${data.transactionId}`);
 				closeDialog();
+				window.location.reload();
 			})
 			.catch((err) => {
 				setIsLoading(false);
