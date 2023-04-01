@@ -31,11 +31,21 @@ const SellStocks = ({ setUser }) => {
 			<div className="header-name ml-14 flex items-center justify-center">
 				Your Stocks{" "}
 			</div>
-			<div className="mr-32 ml-32 mb-32 mt-10 grid lg:grid-cols-3 gap-32">
-				{userStocksData.map((data) => (
-					<Cards key={data.stockId} data={data} type={"SELL"} />
-				))}
-			</div>
+			{userStocksData.length ? (
+				<>
+					<div className="mr-32 ml-32 mb-32 mt-10 grid lg:grid-cols-3 gap-32">
+						{userStocksData.map((data) => (
+							<Cards key={data.stockId} data={data} type={"SELL"} />
+						))}
+					</div>
+				</>
+			) : (
+				<>
+					<div className="text-3xl ml-14 flex items-center justify-center">
+						You don't own any stocks.
+					</div>
+				</>
+			)}
 		</>
 	);
 };
