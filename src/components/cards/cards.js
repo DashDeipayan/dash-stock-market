@@ -45,7 +45,9 @@ const Cards = ({ data, type }) => {
 					</svg>
 					{
 						<span className="text-blue-700">
-							Quantity: {data.stockQuantity.toFixed(4) || data.quantity}
+							Quantity:{" "}
+							{parseFloat(data.stockQuantity).toFixed(4) ||
+								parseFloat(data.quantity).toFixed(4)}
 						</span>
 					}
 				</div>
